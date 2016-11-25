@@ -1,54 +1,83 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <nffgInfo xmlns="http://www.example.org/nffgInfo" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.example.org/nffgInfo nffgInfo.xsd">
-	<nffgs>
-		<nffg name="fg1">
-			<updateTime>2016-11-21T16:00:00</updateTime>
-			<nodes>
-				<node name="node1">
-					<funcType>WEB_CLIENT</funcType>
-					<links>
-						<link name="CtoS">
-							<destinationNode name="node2" />
-							<sourceNode name="node1" />
-						</link>
-					</links>
-				</node>
-				<node name="node2">
-					<funcType>WEB_SERVER</funcType>
-					<links>
-						<link name="StoC">
-							<destinationNode name="node1" />
-							<sourceNode name="node2" />
-						</link>
-					</links>
-				</node>
-			</nodes>
-		</nffg>
-		<nffg name="fg1">
-			<updateTime>2016-11-21T16:00:00</updateTime>
-			<nodes>
-				<node name="node1">
-					<funcType>WEB_CLIENT</funcType>
-					<links>
-						<link name="CtoS">
-							<destinationNode name="node2" />
-							<sourceNode name="node1" />
-						</link>
-					</links>
-				</node>
-				<node name="node2">
-					<funcType>WEB_SERVER</funcType>
-					<links>
-						<link name="StoC">
-							<destinationNode name="node1" />
-							<sourceNode name="node2" />
-						</link>
-					</links>
-				</node>
-			</nodes>
-		</nffg>
-	</nffgs>
-	<policies>
-	</policies>
+    <nffgs>
+        <nffg name="fg1">
+            <updateTime>2016-11-21T16:00:00</updateTime>
+            <nodes>
+                <node name="node1">
+                    <funcType>WEB_CLIENT</funcType>
+                    <links>
+                        <link name="CtoS">
+                            <destinationNode name="node3" />
+                        </link>
+                    </links>
+                </node>
+                <node name="node2">
+                    <funcType>WEB_SERVER</funcType>
+                    <links>
+                        <link name="StoC">
+                            <destinationNode name="node3" />
+                        </link>
+                    </links>
+                </node>
+                <node name="node3">
+                    <funcType>FW</funcType>
+                    <links>
+                        <link name="StoFtoC">
+                            <destinationNode name="node1" />
+                        </link>
+                        <link name="CtoFtoS">
+                            <destinationNode name="node2" />
+                        </link>
+                    </links>
+                </node>
+            </nodes>
+            <policies>
+                <traversalPolicy name="noNAT" positive="false">
+                    <sourceNode name="node1"/>
+                    <destinationNode name="node2"/>
+                    <traversedFunctionalTypes>NAT</traversedFunctionalTypes>
+                </traversalPolicy>
+            </policies>
+        </nffg>
+        <nffg name="fg2">
+            <updateTime>2016-11-21T16:00:00</updateTime>
+            <nodes>
+                <node name="node1">
+                    <funcType>WEB_CLIENT</funcType>
+                    <links>
+                        <link name="CtoS">
+                            <destinationNode name="node3" />
+                        </link>
+                    </links>
+                </node>
+                <node name="node2">
+                    <funcType>WEB_SERVER</funcType>
+                    <links>
+                        <link name="StoC">
+                            <destinationNode name="node3" />
+                        </link>
+                    </links>
+                </node>
+                <node name="node3">
+                    <funcType>FW</funcType>
+                    <links>
+                        <link name="StoFtoC">
+                            <destinationNode name="node1" />
+                        </link>
+                        <link name="CtoFtoS">
+                            <destinationNode name="node2" />
+                        </link>
+                    </links>
+                </node>
+            </nodes>
+            <policies>
+                <reachabilityPolicy name="ClientReacheServer" positive="true">
+                    <sourceNode name="node1"/>
+                    <destinationNode name="node2"/>
+                </reachabilityPolicy>
+            </policies>
+        </nffg>
+    </nffgs>
 </nffgInfo>
