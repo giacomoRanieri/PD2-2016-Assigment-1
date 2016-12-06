@@ -12,17 +12,14 @@
                 <xs:complexType>
                     <xs:sequence>
                         <xs:element name="nffg" type="nffgType" minOccurs="0" maxOccurs="unbounded">
-                            
                             <xs:key name="nodeId">
                                 <xs:selector xpath="./nodes/node" />
                                 <xs:field xpath="@name" />
                             </xs:key>
-                            
                             <xs:keyref name="linkDestinationNode" refer="nodeId">
                                 <xs:selector xpath="./nodes/node/links/link/destinationNode" />
                                 <xs:field xpath="@name" />
                             </xs:keyref>
-                            
                             <xs:keyref name="reachabilitySource" refer="nodeId">
                                 <xs:selector xpath="./policies/reachabilityPolicy/sourceNode" />
                                 <xs:field xpath="@name" />
@@ -31,7 +28,6 @@
                                 <xs:selector xpath="./policies/reachabilityPolicy/destinationNode" />
                                 <xs:field xpath="@name" />
                             </xs:keyref>
-                            
                             <xs:keyref name="traversalSource" refer="nodeId">
                                 <xs:selector xpath="./policies/traversalPolicy/sourceNode" />
                                 <xs:field xpath="@name" />
@@ -40,7 +36,6 @@
                                 <xs:selector xpath="./policies/traversalPolicy/destinationNode" />
                                 <xs:field xpath="@name" />
                             </xs:keyref>
-                            
                             <xs:unique name="linkName">
                                 <xs:selector xpath="./nodes/node/links/link" />
                                 <xs:field xpath="@name" />
@@ -89,7 +84,7 @@
         <xs:sequence>
             <xs:element name="destinationNode" minOccurs="1">
                 <xs:complexType>
-                    <xs:attribute name="name" />
+                    <xs:attribute name="name" use="required" />
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
@@ -108,12 +103,12 @@
                 <xs:sequence>
                     <xs:element name="sourceNode" minOccurs="1">
                         <xs:complexType>
-                            <xs:attribute name="name" use="required"/>
+                            <xs:attribute name="name" use="required" />
                         </xs:complexType>
                     </xs:element>
                     <xs:element name="destinationNode" minOccurs="1">
                         <xs:complexType>
-                            <xs:attribute name="name" use="required"/>
+                            <xs:attribute name="name" use="required" />
                         </xs:complexType>
                     </xs:element>
                 </xs:sequence>
@@ -125,9 +120,11 @@
             <xs:extension base="reachabilityPolicyType">
                 <xs:sequence>
                     <xs:element name="traversedFunctionalTypes">
-                        <xs:simpleType>
-                            <xs:list itemType="functionalType" />
-                        </xs:simpleType>
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="funcType" minOccurs="0" maxOccurs="unbounded" type="functionalType" />
+                            </xs:sequence>
+                        </xs:complexType>
                     </xs:element>
                 </xs:sequence>
             </xs:extension>

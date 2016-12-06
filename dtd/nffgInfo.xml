@@ -1,42 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<nffgInfo xmlns="http://www.example.org/nffgInfo" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.example.org/nffgInfo nffgInfo.xsd">
+<!DOCTYPE nffgInfo SYSTEM "nffgInfo.dtd">
+<nffgInfo>
     <nffgs>
         <nffg name="fg1">
             <updateTime>2016-11-21T16:00:00</updateTime>
             <nodes>
-                <node name="node1">
+                <node name="node1.1">
                     <funcType>WEB_CLIENT</funcType>
                     <links>
-                        <link name="CtoS">
-                            <destinationNode name="node3" />
+                        <link name="CtoS1">
+                            <destinationNode name="node1.3" />
                         </link>
                     </links>
                 </node>
-                <node name="node2">
+                <node name="node1.2">
                     <funcType>WEB_SERVER</funcType>
                     <links>
-                        <link name="StoC">
-                            <destinationNode name="node3" />
+                        <link name="StoC1">
+                            <destinationNode name="node1.3" />
                         </link>
                     </links>
                 </node>
-                <node name="node3">
+                <node name="node1.3">
                     <funcType>FW</funcType>
                     <links>
-                        <link name="StoFtoC">
-                            <destinationNode name="node1" />
+                        <link name="StoFtoC1">
+                            <destinationNode name="node1.1" />
                         </link>
-                        <link name="CtoFtoS">
-                            <destinationNode name="node2" />
+                        <link name="CtoFtoS1">
+                            <destinationNode name="node1.2" />
                         </link>
                     </links>
                 </node>
             </nodes>
             <policies>
                 <traversalPolicy name="noNAT" positive="false">
-                    <sourceNode name="node1"/>
-                    <destinationNode name="node2"/>
+                    <sourceNode name="node1.1"/>
+                    <destinationNode name="node1.2"/>
                     <traversedFunctionalTypes>
                     	<funcType>NAT</funcType>
                     </traversedFunctionalTypes>
@@ -46,38 +46,38 @@
         <nffg name="fg2">
             <updateTime>2016-11-21T16:00:00</updateTime>
             <nodes>
-                <node name="node1">
+                <node name="node2.1">
                     <funcType>WEB_CLIENT</funcType>
                     <links>
-                        <link name="CtoS">
-                            <destinationNode name="node3" />
+                        <link name="CtoS2">
+                            <destinationNode name="node2.3" />
                         </link>
                     </links>
                 </node>
-                <node name="node2">
+                <node name="node2.2">
                     <funcType>WEB_SERVER</funcType>
                     <links>
-                        <link name="StoC">
-                            <destinationNode name="node3" />
+                        <link name="StoC2">
+                            <destinationNode name="node2.3" />
                         </link>
                     </links>
                 </node>
-                <node name="node3">
+                <node name="node2.3">
                     <funcType>FW</funcType>
                     <links>
-                        <link name="StoFtoC">
-                            <destinationNode name="node1" />
+                        <link name="StoFtoC2">
+                            <destinationNode name="node2.1" />
                         </link>
-                        <link name="CtoFtoS">
-                            <destinationNode name="node2" />
+                        <link name="CtoFtoS2">
+                            <destinationNode name="node2.2" />
                         </link>
                     </links>
                 </node>
             </nodes>
             <policies>
                 <reachabilityPolicy name="ClientReacheServer" positive="true">
-                    <sourceNode name="node1"/>
-                    <destinationNode name="node2"/>
+                    <sourceNode name="node2.1"/>
+                    <destinationNode name="node2.2"/>
                 </reachabilityPolicy>
             </policies>
         </nffg>

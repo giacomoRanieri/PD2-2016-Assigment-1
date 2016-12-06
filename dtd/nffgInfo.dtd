@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT nffgInfo (nffgs)>
+<!ELEMENT nffgs ((nffg)*)>
+
+<!ELEMENT nffg (updateTime, nodes, policies)>
+<!ATTLIST nffg 
+	name ID #REQUIRED >
+
+<!ELEMENT updateTime (#PCDATA)>
+<!ELEMENT nodes ((node)*)>
+
+<!ELEMENT node (funcType, links)>
+<!ATTLIST node 
+	name ID #REQUIRED >
+
+<!ELEMENT policies ((reachabilityPolicy)*, (traversalPolicy)*)>
+
+<!ELEMENT reachabilityPolicy (((verificationResult)?), (sourceNode, destinationNode))>
+<!ATTLIST reachabilityPolicy
+	positive NMTOKEN #REQUIRED
+	name ID #REQUIRED >
+
+<!ELEMENT traversalPolicy ((((verificationResult)?), (sourceNode, destinationNode)), (traversedFunctionalTypes))>
+<!ATTLIST traversalPolicy
+	positive NMTOKEN #REQUIRED
+	name ID #REQUIRED >
+
+<!ELEMENT funcType (#PCDATA)>
+<!ELEMENT links ((link)*)>
+
+<!ELEMENT link (destinationNode)>
+<!ATTLIST link 
+	name ID #REQUIRED >
+	
+<!ELEMENT destinationNode EMPTY>
+<!ATTLIST destinationNode 
+	name IDREF #REQUIRED >
+	
+<!ELEMENT verificationResult ANY>
+
+<!ELEMENT sourceNode EMPTY>
+<!ATTLIST sourceNode 
+	name IDREF #REQUIRED >
+	
+<!ELEMENT traversedFunctionalTypes ((funcType)*)>
+<!ELEMENT verificationResultMsg (#PCDATA)>
+<!ELEMENT verificationTime (#PCDATA)>
