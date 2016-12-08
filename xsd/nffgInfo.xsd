@@ -1,154 +1,169 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <xs:schema xmlns="http://www.example.org/nffgInfo" elementFormDefault="qualified" targetNamespace="http://www.example.org/nffgInfo" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <xs:element name="nffgInfo" type="nffgInfoType">
-        <xs:unique name="nffgId">
-            <xs:selector xpath="./nffgs/nffg" />
-            <xs:field xpath="@name" />
-        </xs:unique>
-    </xs:element>
-    <xs:complexType name="nffgInfoType">
-        <xs:sequence>
-            <xs:element name="nffgs">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="nffg" type="nffgType" minOccurs="0" maxOccurs="unbounded">
-                            <xs:key name="nodeId">
-                                <xs:selector xpath="./nodes/node" />
-                                <xs:field xpath="@name" />
-                            </xs:key>
-                            <xs:keyref name="linkDestinationNode" refer="nodeId">
-                                <xs:selector xpath="./nodes/node/links/link/destinationNode" />
-                                <xs:field xpath="@name" />
-                            </xs:keyref>
-                            <xs:keyref name="reachabilitySource" refer="nodeId">
-                                <xs:selector xpath="./policies/reachabilityPolicy/sourceNode" />
-                                <xs:field xpath="@name" />
-                            </xs:keyref>
-                            <xs:keyref name="reachabilityDestination" refer="nodeId">
-                                <xs:selector xpath="./policies/reachabilityPolicy/destinationNode" />
-                                <xs:field xpath="@name" />
-                            </xs:keyref>
-                            <xs:keyref name="traversalSource" refer="nodeId">
-                                <xs:selector xpath="./policies/traversalPolicy/sourceNode" />
-                                <xs:field xpath="@name" />
-                            </xs:keyref>
-                            <xs:keyref name="traversalDestination" refer="nodeId">
-                                <xs:selector xpath="./policies/traversalPolicy/destinationNode" />
-                                <xs:field xpath="@name" />
-                            </xs:keyref>
-                            <xs:unique name="linkName">
-                                <xs:selector xpath="./nodes/node/links/link" />
-                                <xs:field xpath="@name" />
-                            </xs:unique>
-                        </xs:element>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-        </xs:sequence>
-    </xs:complexType>
-    <xs:complexType name="nffgType">
-        <xs:sequence>
-            <xs:element name="updateTime" type="xs:dateTime" minOccurs="1" />
-            <xs:element name="nodes">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="node" type="nodeType" minOccurs="0" maxOccurs="unbounded" />
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:element name="policies">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="reachabilityPolicy" type="reachabilityPolicyType" minOccurs="0" maxOccurs="unbounded" />
-                        <xs:element name="traversalPolicy" type="traversalPolicyType" minOccurs="0" maxOccurs="unbounded" />
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-        </xs:sequence>
-        <xs:attribute name="name" type="xs:string" use="required" />
-    </xs:complexType>
-    <xs:complexType name="nodeType">
-        <xs:sequence>
-            <xs:element name="funcType" type="functionalType" />
-            <xs:element name="links">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="link" type="linkType" minOccurs="0" maxOccurs="unbounded" />
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-        </xs:sequence>
-        <xs:attribute name="name" type="xs:string" use="required" />
-    </xs:complexType>
-    <xs:complexType name="linkType">
-        <xs:sequence>
-            <xs:element name="destinationNode" minOccurs="1">
-                <xs:complexType>
-                    <xs:attribute name="name" use="required" />
-                </xs:complexType>
-            </xs:element>
-        </xs:sequence>
-        <xs:attribute name="name" type="xs:string" use="required" />
-    </xs:complexType>
-    <xs:complexType name="policyType">
-        <xs:sequence>
-            <xs:element name="verificationResult" type="verificationResultType" minOccurs="0" />
-        </xs:sequence>
-        <xs:attribute name="positive" type="xs:boolean" use="required" />
-        <xs:attribute name="name" type="xs:string" use="required" />
-    </xs:complexType>
-    <xs:complexType name="reachabilityPolicyType">
-        <xs:complexContent>
-            <xs:extension base="policyType">
-                <xs:sequence>
-                    <xs:element name="sourceNode" minOccurs="1">
-                        <xs:complexType>
-                            <xs:attribute name="name" use="required" />
-                        </xs:complexType>
-                    </xs:element>
-                    <xs:element name="destinationNode" minOccurs="1">
-                        <xs:complexType>
-                            <xs:attribute name="name" use="required" />
-                        </xs:complexType>
-                    </xs:element>
-                </xs:sequence>
-            </xs:extension>
-        </xs:complexContent>
-    </xs:complexType>
-    <xs:complexType name="traversalPolicyType">
-        <xs:complexContent>
-            <xs:extension base="reachabilityPolicyType">
-                <xs:sequence>
-                    <xs:element name="traversedFunctionalTypes">
-                        <xs:complexType>
-                            <xs:sequence>
-                                <xs:element name="funcType" minOccurs="0" maxOccurs="unbounded" type="functionalType" />
-                            </xs:sequence>
-                        </xs:complexType>
-                    </xs:element>
-                </xs:sequence>
-            </xs:extension>
-        </xs:complexContent>
-    </xs:complexType>
-    <xs:complexType name="verificationResultType">
-        <xs:sequence>
-            <xs:element name="verificationResult" type="xs:boolean" />
-            <xs:element name="verificationResultMsg" type="xs:string" />
-            <xs:element name="verificationTime" type="xs:dateTime" />
-        </xs:sequence>
-    </xs:complexType>
-    <xs:simpleType name="functionalType" final="restriction">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="FW" />
-            <xs:enumeration value="DPI" />
-            <xs:enumeration value="NAT" />
-            <xs:enumeration value="SPAM" />
-            <xs:enumeration value="CACHE" />
-            <xs:enumeration value="VPN" />
-            <xs:enumeration value="WEB_SERVER" />
-            <xs:enumeration value="WEB_CLIENT" />
-            <xs:enumeration value="MAIL_SERVER" />
-            <xs:enumeration value="MAIL_CLIENT" />
-        </xs:restriction>
-    </xs:simpleType>
+	<xs:element name="nffgInfo" type="nffgInfo">
+		<xs:unique name="nffgId">
+			<xs:selector xpath="./nffgs/nffg" />
+			<xs:field xpath="@name" />
+		</xs:unique>
+	</xs:element>
+	<xs:complexType name="nffgInfo">
+		<xs:sequence>
+			<xs:element name="nffgs">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="nffg" type="nffg" minOccurs="0" maxOccurs="unbounded">
+							<xs:key name="nodeId">
+								<xs:selector xpath="./nodes/node" />
+								<xs:field xpath="@name" />
+							</xs:key>
+							<xs:keyref name="linkDestinationNode" refer="nodeId">
+								<xs:selector xpath="./nodes/node/links/link/destinationNode" />
+								<xs:field xpath="@name" />
+							</xs:keyref>
+							<xs:keyref name="reachabilitySource" refer="nodeId">
+								<xs:selector xpath="./policies/reachabilityPolicy/sourceNode" />
+								<xs:field xpath="@name" />
+							</xs:keyref>
+							<xs:keyref name="reachabilityDestination" refer="nodeId">
+								<xs:selector xpath="./policies/reachabilityPolicy/destinationNode" />
+								<xs:field xpath="@name" />
+							</xs:keyref>
+							<xs:keyref name="traversalSource" refer="nodeId">
+								<xs:selector xpath="./policies/traversalPolicy/sourceNode" />
+								<xs:field xpath="@name" />
+							</xs:keyref>
+							<xs:keyref name="traversalDestination" refer="nodeId">
+								<xs:selector xpath="./policies/traversalPolicy/destinationNode" />
+								<xs:field xpath="@name" />
+							</xs:keyref>
+							<xs:unique name="linkName">
+								<xs:selector xpath="./nodes/node/links/link" />
+								<xs:field xpath="@name" />
+							</xs:unique>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="nffg">
+		<xs:complexContent>
+			<xs:extension base="namedEntity">
+				<xs:sequence>
+					<xs:element name="updateTime" type="xs:dateTime" minOccurs="1" />
+					<xs:element name="nodes">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="node" type="node" minOccurs="0" maxOccurs="unbounded" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="policies">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="reachabilityPolicy" type="reachabilityPolicy" minOccurs="0" maxOccurs="unbounded" />
+								<xs:element name="traversalPolicy" type="traversalPolicy" minOccurs="0" maxOccurs="unbounded" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="node">
+		<xs:complexContent>
+			<xs:extension base="namedEntity">
+				<xs:sequence>
+					<xs:element name="funcType" type="functionalType" />
+					<xs:element name="links">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="link" type="link" minOccurs="0" maxOccurs="unbounded" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="link">
+		<xs:complexContent>
+			<xs:extension base="namedEntity">
+				<xs:sequence>
+					<xs:element name="destinationNode" minOccurs="1">
+						<xs:complexType>
+							<xs:attribute name="name" use="required" />
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="policy">
+		<xs:complexContent>
+			<xs:extension base="namedEntity">
+				<xs:sequence>
+					<xs:element name="verificationResult" type="verificationResult" minOccurs="0" />
+				</xs:sequence>
+				<xs:attribute name="positive" type="xs:boolean" use="required" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="reachabilityPolicy">
+		<xs:complexContent>
+			<xs:extension base="policy">
+				<xs:sequence>
+					<xs:element name="sourceNode" minOccurs="1">
+						<xs:complexType>
+							<xs:attribute name="name" use="required" />
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="destinationNode" minOccurs="1">
+						<xs:complexType>
+							<xs:attribute name="name" use="required" />
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="traversalPolicy">
+		<xs:complexContent>
+			<xs:extension base="reachabilityPolicy">
+				<xs:sequence>
+					<xs:element name="traversedFunctionalTypes">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="funcType" minOccurs="0" maxOccurs="unbounded" type="functionalType" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="verificationResult">
+		<xs:sequence>
+			<xs:element name="verificationResult" type="xs:boolean" />
+			<xs:element name="verificationResultMsg" type="xs:string" />
+			<xs:element name="verificationTime" type="xs:dateTime" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="functionalType" final="restriction">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="FW" />
+			<xs:enumeration value="DPI" />
+			<xs:enumeration value="NAT" />
+			<xs:enumeration value="SPAM" />
+			<xs:enumeration value="CACHE" />
+			<xs:enumeration value="VPN" />
+			<xs:enumeration value="WEB_SERVER" />
+			<xs:enumeration value="WEB_CLIENT" />
+			<xs:enumeration value="MAIL_SERVER" />
+			<xs:enumeration value="MAIL_CLIENT" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="namedEntity">
+		<xs:attribute name="name" type="xs:string" use="required" />
+	</xs:complexType>
 </xs:schema>
