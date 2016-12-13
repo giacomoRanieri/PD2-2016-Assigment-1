@@ -1,6 +1,6 @@
 ﻿<?xml version="1.1" encoding="utf-8" ?>
 <xs:schema xmlns:ni="http://www.example.org/nffgInfo" elementFormDefault="qualified" targetNamespace="http://www.example.org/nffgInfo" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-	<xs:element name="nffgVerifier" type="ni:nffgVerifier">
+	<xs:element name="nffgVerifier" type="ni:nffgVerifierType">
 		<xs:unique name="nffgId">
 			<xs:selector xpath="ni:nffgs/ni:nffg"/>
 			<xs:field xpath="@name"/>
@@ -11,12 +11,12 @@
 			<xs:field xpath="ni:reachabilityPolicy/@name"/>
 		</xs:unique>-->
 	</xs:element>
-	<xs:complexType name="nffgVerifier">
+	<xs:complexType name="nffgVerifierType">
 		<xs:sequence>
 			<xs:element name="nffgs">
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="nffg" type="ni:nffg" minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="nffg" type="ni:nffgType" minOccurs="0" maxOccurs="unbounded">
 							<xs:key name="nodeId">
 								<xs:selector xpath="ni:nodes/ni:node"/>
 								<xs:field xpath="@name"/>
@@ -51,23 +51,23 @@
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="nffg">
+	<xs:complexType name="nffgType">
 		<xs:complexContent>
-			<xs:extension base="ni:namedEntity">
+			<xs:extension base="ni:namedEntityType">
 				<xs:sequence>
 					<xs:element name="updateTime" type="xs:dateTime" minOccurs="1"/>
 					<xs:element name="nodes">
 						<xs:complexType>
 							<xs:sequence>
-								<xs:element name="node" type="ni:node" minOccurs="0" maxOccurs="unbounded"/>
+								<xs:element name="node" type="ni:nodeType" minOccurs="0" maxOccurs="unbounded"/>
 							</xs:sequence>
 						</xs:complexType>
 					</xs:element>
 					<xs:element name="policies">
 						<xs:complexType>
 							<xs:sequence>
-								<xs:element name="reachabilityPolicy" type="ni:reachabilityPolicy" minOccurs="0" maxOccurs="unbounded"/>
-								<xs:element name="traversalPolicy" type="ni:traversalPolicy" minOccurs="0" maxOccurs="unbounded"/>
+								<xs:element name="reachabilityPolicy" type="ni:reachabilityPolicyType" minOccurs="0" maxOccurs="unbounded"/>
+								<xs:element name="traversalPolicy" type="ni:traversalPolicyType" minOccurs="0" maxOccurs="unbounded"/>
 							</xs:sequence>
 						</xs:complexType>
 					</xs:element>
@@ -75,15 +75,15 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:complexType name="node">
+	<xs:complexType name="nodeType">
 		<xs:complexContent>
-			<xs:extension base="ni:namedEntity">
+			<xs:extension base="ni:namedEntityType">
 				<xs:sequence>
 					<xs:element name="funcType" type="ni:functionalType"/>
 					<xs:element name="links">
 						<xs:complexType>
 							<xs:sequence>
-								<xs:element name="link" type="ni:link" minOccurs="0" maxOccurs="unbounded"/>
+								<xs:element name="link" type="ni:linkType" minOccurs="0" maxOccurs="unbounded"/>
 							</xs:sequence>
 						</xs:complexType>
 					</xs:element>
@@ -91,38 +91,38 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:complexType name="link">
+	<xs:complexType name="linkType">
 		<xs:complexContent>
-			<xs:extension base="ni:namedEntity">
+			<xs:extension base="ni:namedEntityType">
 				<xs:sequence>
-					<xs:element name="destinationNode" minOccurs="1" type="ni:namedEntity"/>
+					<xs:element name="destinationNode" minOccurs="1" type="ni:namedEntityType"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:complexType name="policy">
+	<xs:complexType name="policyType">
 		<xs:complexContent>
-			<xs:extension base="ni:namedEntity">
+			<xs:extension base="ni:namedEntityType">
 				<xs:sequence>
-					<xs:element name="verificationResult" type="ni:verificationResult" minOccurs="0"/>
+					<xs:element name="verificationResult" type="ni:verificationResultType" minOccurs="0"/>
 				</xs:sequence>
 				<xs:attribute name="positive" type="xs:boolean" use="required"/>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:complexType name="reachabilityPolicy">
+	<xs:complexType name="reachabilityPolicyType">
 		<xs:complexContent>
-			<xs:extension base="ni:policy">
+			<xs:extension base="ni:policyType">
 				<xs:sequence>
-					<xs:element name="sourceNode" minOccurs="1" type="ni:namedEntity"/>
-					<xs:element name="destinationNode" minOccurs="1" type="ni:namedEntity"/>
+					<xs:element name="sourceNode" minOccurs="1" type="ni:namedEntityType"/>
+					<xs:element name="destinationNode" minOccurs="1" type="ni:namedEntityType"/>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:complexType name="traversalPolicy">
+	<xs:complexType name="traversalPolicyType">
 		<xs:complexContent>
-			<xs:extension base="ni:reachabilityPolicy">
+			<xs:extension base="ni:reachabilityPolicyType">
 				<xs:sequence>
 					<xs:element name="traversedFunctionalTypes">
 						<xs:complexType>
@@ -135,7 +135,7 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:complexType name="verificationResult">
+	<xs:complexType name="verificationResultType">
 		<xs:sequence>
 			<xs:element name="verificationResult" type="xs:boolean"/>
 			<xs:element name="verificationResultMsg" type="xs:string"/>
@@ -156,7 +156,7 @@
 			<xs:enumeration value="MAIL_CLIENT"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:complexType name="namedEntity">
+	<xs:complexType name="namedEntityType">
 		<xs:attribute name="name" type="xs:string" use="required"/>
 	</xs:complexType>
 </xs:schema>
