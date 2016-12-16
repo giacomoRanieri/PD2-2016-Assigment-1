@@ -79,7 +79,7 @@
 		<xs:complexContent>
 			<xs:extension base="ni:namedEntityType">
 				<xs:sequence>
-					<xs:element name="funcType" type="ni:functionalType"/>
+					<xs:element name="funcType" type="ni:functionalTypeType"/>
 					<xs:element name="links">
 						<xs:complexType>
 							<xs:sequence>
@@ -104,7 +104,7 @@
 		<xs:complexContent>
 			<xs:extension base="ni:namedEntityType">
 				<xs:sequence>
-					<xs:element name="verificationResult" type="ni:verificationResultType" minOccurs="0"/>
+					<xs:element name="result" type="ni:verificationResultType" minOccurs="0"/>
 				</xs:sequence>
 				<xs:attribute name="positive" type="xs:boolean" use="required"/>
 			</xs:extension>
@@ -127,7 +127,7 @@
 					<xs:element name="traversedFunctionalTypes">
 						<xs:complexType>
 							<xs:sequence>
-								<xs:element name="funcType" minOccurs="0" maxOccurs="unbounded" type="ni:functionalType"/>
+								<xs:element name="funcType" minOccurs="0" maxOccurs="unbounded" type="ni:functionalTypeType"/>
 							</xs:sequence>
 						</xs:complexType>
 					</xs:element>
@@ -142,7 +142,7 @@
 			<xs:element name="verificationTime" type="xs:dateTime"/>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:simpleType name="functionalType" final="restriction">
+	<xs:simpleType name="functionalTypeType" final="restriction">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="FW"/>
 			<xs:enumeration value="DPI"/>

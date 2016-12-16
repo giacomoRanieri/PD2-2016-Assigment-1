@@ -6,15 +6,15 @@
 		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/junit-4.5.jar!/"/>
 	</lib>
 	<lib name="lab1.jar" scope="COMPILE">
-		<srcroot url="jar://D:/Polito/2° Anno LM/PD2/lab1_source_from_cfr.zip!/"/>
+		<srcroot url="jar://$MODULE_DIR$/../../lab1_source_from_cfr.zip!/"/>
 		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/lab1.jar!/"/>
 	</lib>
 	<lib name="NFFG.jar" scope="COMPILE">
-		<srcroot url="jar://D:/Polito/2° Anno LM/PD2/NFFG_source_from_cfr.zip!/"/>
+		<srcroot url="jar://$MODULE_DIR$/../../NFFG_source_from_cfr.zip!/"/>
 		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/NFFG.jar!/"/>
 	</lib>
 	<lib name="NFFGRandom.jar" scope="COMPILE">
-		<srcroot url="jar://D:/Polito/2° Anno LM/PD2/NFFGRandom_source_from_cfr.zip!/"/>
+		<srcroot url="jar://$MODULE_DIR$/../../NFFGRandom_source_from_cfr.zip!/"/>
 		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/NFFGRandom.jar!/"/>
 	</lib>
 </component>
