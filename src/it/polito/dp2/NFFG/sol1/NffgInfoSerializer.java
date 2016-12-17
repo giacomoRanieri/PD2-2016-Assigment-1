@@ -15,6 +15,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import it.polito.dp2.NFFG.NffgVerifierFactory;
 import it.polito.dp2.NFFG.*;
 import it.polito.dp2.NFFG.sol1.jaxb.*;
 
@@ -42,7 +43,7 @@ public class NffgInfoSerializer {
 	 * @param verifier
 	 * @throws IllegalArgumentException
 	 */
-	public NffgInfoSerializer(NffgVerifier verifier) {
+	public NffgInfoSerializer(NffgVerifierImpl verifier) {
 		super();
 		if (verifier != null) {
 			this.verifier = verifier;
