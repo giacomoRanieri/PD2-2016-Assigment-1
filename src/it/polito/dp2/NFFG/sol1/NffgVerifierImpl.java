@@ -64,14 +64,28 @@ public class NffgVerifierImpl implements NffgVerifier {
 
 	@Override
 	public Set<PolicyReader> getPolicies(String nffgName) {
-
-		return null;
+		Set<PolicyReader> pols = new HashSet<PolicyReader>();
+		for (PolicyReader pol : policy) {
+			if (pol.getNffg().getName().equals(nffgName))
+				pols.add(pol);
+		}
+		if (pols.isEmpty())
+			return null;
+		else
+			return pols;
 	}
 
 	@Override
 	public Set<PolicyReader> getPolicies(Calendar verificationTime) {
-		// TODO Auto-generated method stub
-		return null;
+		Set<PolicyReader> pols = new HashSet<PolicyReader>();
+		for (PolicyReader pol : policy) {
+			if (pol.getResult().getVerificationTime() != null && pol.getResult().getVerificationTime().after((verificationTime)))
+				pols.add(pol);
+		}
+		if (pols.isEmpty())
+			return null;
+		else
+			return pols;
 	}
 
 }

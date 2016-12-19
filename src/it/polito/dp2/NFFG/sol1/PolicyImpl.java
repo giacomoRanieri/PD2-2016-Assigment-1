@@ -4,7 +4,6 @@ import it.polito.dp2.NFFG.NffgReader;
 import it.polito.dp2.NFFG.PolicyReader;
 import it.polito.dp2.NFFG.VerificationResultReader;
 import it.polito.dp2.NFFG.sol1.jaxb.PolicyType;
-import it.polito.dp2.NFFG.sol1.jaxb.ReachabilityPolicyType;
 
 
 public class PolicyImpl extends NamedEntityImpl implements PolicyReader {
@@ -19,7 +18,10 @@ public class PolicyImpl extends NamedEntityImpl implements PolicyReader {
 	}
 
 	private void init() {
-		this.vr = new VerificationResultImpl(((ReachabilityPolicyType) this.entity).getResult(), this);
+		if (((PolicyType) this.entity).getResult() != null)
+			this.vr = new VerificationResultImpl(((PolicyType) this.entity).getResult(), this);
+		else
+			this.vr = null;
 	}
 
 	@Override

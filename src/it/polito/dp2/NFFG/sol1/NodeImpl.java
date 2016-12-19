@@ -16,6 +16,7 @@ public class NodeImpl extends NamedEntityImpl implements NodeReader {
 		super(np);
 		this.nffg = nffg;
 		this.links = new HashSet<LinkReader>();
+		init();
 	}
 
 	private void init() throws NffgVerifierException {

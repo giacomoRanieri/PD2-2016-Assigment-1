@@ -16,7 +16,15 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import it.polito.dp2.NFFG.NffgVerifierFactory;
-import it.polito.dp2.NFFG.*;
+import it.polito.dp2.NFFG.NffgVerifier;
+import it.polito.dp2.NFFG.NffgVerifierException;
+import it.polito.dp2.NFFG.NffgReader;
+import it.polito.dp2.NFFG.LinkReader;
+import it.polito.dp2.NFFG.FunctionalType;
+import it.polito.dp2.NFFG.NodeReader;
+import it.polito.dp2.NFFG.PolicyReader;
+import it.polito.dp2.NFFG.TraversalPolicyReader;
+import it.polito.dp2.NFFG.ReachabilityPolicyReader;
 import it.polito.dp2.NFFG.sol1.jaxb.*;
 
 public class NffgInfoSerializer {
