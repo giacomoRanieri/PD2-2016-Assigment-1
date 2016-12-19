@@ -16,7 +16,7 @@ public class NffgVerifierImpl implements NffgVerifier {
 	private Set<NffgReader> nffgs;
 	private Set<PolicyReader> policy;
 
-	public NffgVerifierImpl(NffgVerifierType veri) throws NffgVerifierException{
+	public NffgVerifierImpl(NffgVerifierType veri) throws NffgVerifierException {
 		this.verifier = veri;
 		this.nffgs = new HashSet<NffgReader>();
 		this.policy = new HashSet<PolicyReader>();
@@ -24,45 +24,52 @@ public class NffgVerifierImpl implements NffgVerifier {
 		this.init();
 	}
 
-	private void init() throws NffgVerifierException{
-		for(NffgType fg: verifier.getNffgs().getNffg()){
-			NffgReader nffg = new NffgReaderImpl(fg);
+	private void init() throws NffgVerifierException {
+		for (NffgType fg : verifier.getNffgs().getNffg()) {
+			NffgReader nffg = new NffgImpl(fg);
 			nffgs.add(nffg);
-			/*for(ReachabilityPolicyType pol:fg.getPolicies().getReachabilityPolicy()){
-				PolicyReader policy = new
+			for (ReachabilityPolicyType pol : fg.getPolicies().getReachabilityPolicy()) {
+				if (this.getPolicies(pol.getName()) != null) {
+					throw new NffgVerifierException("Duplicated Policy Name");
+				}
+				policy.add(new ReachabilityPolicyImpl(pol, nffg));
 			}
-			for(TraversalPolicyType pol:fg.getPolicies().getTraversalPolicy()){
-
-			}*/
+			for (TraversalPolicyType pol : fg.getPolicies().getTraversalPolicy()) {
+				if (this.getPolicies(pol.getName()) != null) {
+					throw new NffgVerifierException("Duplicated Policy Name");
+				}
+				policy.add(new TraversalPolicyImpl(pol, nffg));
+			}
 		}
 	}
 
 	@Override
 	public Set<NffgReader> getNffgs() {
-		// TODO Auto-generated method stub
-		return null;
+		return nffgs;
 	}
 
 	@Override
-	public NffgReader getNffg(String var1) {
-		// TODO Auto-generated method stub
+	public NffgReader getNffg(String nffgName) {
+		for (NffgReader nffg : this.nffgs) {
+			if (nffg.getName().equals(nffgName))
+				return nffg;
+		}
 		return null;
 	}
 
 	@Override
 	public Set<PolicyReader> getPolicies() {
-		// TODO Auto-generated method stub
+		return new HashSet<PolicyReader>(policy);
+	}
+
+	@Override
+	public Set<PolicyReader> getPolicies(String nffgName) {
+
 		return null;
 	}
 
 	@Override
-	public Set<PolicyReader> getPolicies(String var1) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Set<PolicyReader> getPolicies(Calendar var1) {
+	public Set<PolicyReader> getPolicies(Calendar verificationTime) {
 		// TODO Auto-generated method stub
 		return null;
 	}

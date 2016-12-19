@@ -24,7 +24,7 @@ public class NffgVerifierFactory extends it.polito.dp2.NFFG.NffgVerifierFactory 
 		try {
 			// create a JAXBContext capable of handling classes generated into
 			// the primer.po package
-			JAXBContext jc = JAXBContext.newInstance( "it.polito.dp2.NFFG.sol1.jaxb" );
+			JAXBContext jc = JAXBContext.newInstance("it.polito.dp2.NFFG.sol1.jaxb");
 			// create an Unmarshaller
 			Unmarshaller u = jc.createUnmarshaller();
 
@@ -32,13 +32,13 @@ public class NffgVerifierFactory extends it.polito.dp2.NFFG.NffgVerifierFactory 
 			Schema schema = sf.newSchema(new File("." + File.separator + "xsd" + File.separator + "nffgInfo.xsd"));
 			u.setSchema(schema);
 
-			Object nv = u.unmarshal( new File(fname) );
-			if( !(nv instanceof JAXBElement<?>) )
+			Object nv = u.unmarshal(new File(fname));
+			if (!(nv instanceof JAXBElement<?>))
 				throw new NffgVerifierException();
-			NffgVerifierType verifierType = ((JAXBElement<NffgVerifierType>)nv).getValue();
+			NffgVerifierType verifierType = ((JAXBElement<NffgVerifierType>) nv).getValue();
 
 			wm = new NffgVerifierImpl(verifierType);
-		}  catch (JAXBException e){
+		} catch (JAXBException e) {
 			e.printStackTrace();
 			throw new NffgVerifierException();
 		} catch (SAXException e) {
