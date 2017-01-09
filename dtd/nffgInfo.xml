@@ -5,38 +5,35 @@
         <nffg name="fg1">
             <updateTime>2016-11-21T16:00:00</updateTime>
             <nodes>
-                <node name="node1.1">
-                    <funcType>WEB_CLIENT</funcType>
+                <node name="node1" funcType="WEB_CLIENT">
                     <links>
                         <link name="CtoS1">
-                            <destinationNode name="node1.3" />
+                            <destinationNode name="node3" />
                         </link>
                     </links>
                 </node>
-                <node name="node1.2">
-                    <funcType>WEB_SERVER</funcType>
+                <node name="node2" funcType="WEB_SERVER">
                     <links>
                         <link name="StoC1">
-                            <destinationNode name="node1.3" />
+                            <destinationNode name="node3" />
                         </link>
                     </links>
                 </node>
-                <node name="node1.3">
-                    <funcType>FW</funcType>
+                <node name="node3" funcType="FW">
                     <links>
                         <link name="StoFtoC1">
-                            <destinationNode name="node1.1" />
+                            <destinationNode name="node1" />
                         </link>
                         <link name="CtoFtoS1">
-                            <destinationNode name="node1.2" />
+                            <destinationNode name="node2" />
                         </link>
                     </links>
                 </node>
             </nodes>
             <policies>
-                <traversalPolicy name="noNAT" positive="false">
-                    <sourceNode name="node1.1"/>
-                    <destinationNode name="node1.2"/>
+                <traversalPolicy name="noNAT" positive="0">
+                    <sourceNode name="node1"/>
+                    <destinationNode name="node2"/>
                     <traversedFunctionalTypes>
                     	<funcType>NAT</funcType>
                     </traversedFunctionalTypes>
@@ -46,38 +43,35 @@
         <nffg name="fg2">
             <updateTime>2016-11-21T16:00:00</updateTime>
             <nodes>
-                <node name="node2.1">
-                    <funcType>WEB_CLIENT</funcType>
+                <node name="node1" funcType ="WEB_CLIENT">
                     <links>
                         <link name="CtoS2">
-                            <destinationNode name="node2.3" />
+                            <destinationNode name="node3" />
                         </link>
                     </links>
                 </node>
-                <node name="node2.2">
-                    <funcType>WEB_SERVER</funcType>
+                <node name="node2" funcType="WEB_SERVER">
                     <links>
                         <link name="StoC2">
-                            <destinationNode name="node2.3" />
+                            <destinationNode name="node3" />
                         </link>
                     </links>
                 </node>
-                <node name="node2.3">
-                    <funcType>FW</funcType>
+                <node name="node3" funcType="FW">
                     <links>
                         <link name="StoFtoC2">
-                            <destinationNode name="node2.1" />
+                            <destinationNode name="node1" />
                         </link>
                         <link name="CtoFtoS2">
-                            <destinationNode name="node2.2" />
+                            <destinationNode name="node2" />
                         </link>
                     </links>
                 </node>
             </nodes>
             <policies>
-                <reachabilityPolicy name="ClientReacheServer" positive="true">
-                    <sourceNode name="node2.1"/>
-                    <destinationNode name="node2.2"/>
+                <reachabilityPolicy name="ClientReacheServer" positive="1">
+                    <sourceNode name="node1"/>
+                    <destinationNode name="node2"/>
                 </reachabilityPolicy>
             </policies>
         </nffg>

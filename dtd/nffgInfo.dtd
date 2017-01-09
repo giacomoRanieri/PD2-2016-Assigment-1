@@ -3,45 +3,46 @@
 <!ELEMENT nffgs ((nffg)*)>
 
 <!ELEMENT nffg (updateTime, nodes, policies)>
-<!ATTLIST nffg 
-	name ID #REQUIRED >
+<!ATTLIST nffg
+	name CDATA #REQUIRED >
 
 <!ELEMENT updateTime (#PCDATA)>
 <!ELEMENT nodes ((node)*)>
 
-<!ELEMENT node (funcType, links)>
-<!ATTLIST node 
-	name ID #REQUIRED >
+<!ELEMENT node (links)>
+<!ATTLIST node
+	funcType (FW|DPI|NAT|SPAM|CACHE|VPN|WEB_SERVER|WEB_CLIENT|MAIL_SERVER|MAIL_CLIENT) #REQUIRED
+	name CDATA #REQUIRED >
 
 <!ELEMENT policies ((reachabilityPolicy)*, (traversalPolicy)*)>
 
 <!ELEMENT reachabilityPolicy (((verificationResult)?), (sourceNode, destinationNode))>
 <!ATTLIST reachabilityPolicy
-	positive NMTOKEN #REQUIRED
-	name ID #REQUIRED >
+	positive (0|1) #REQUIRED
+	name CDATA #REQUIRED >
 
 <!ELEMENT traversalPolicy ((((verificationResult)?), (sourceNode, destinationNode)), (traversedFunctionalTypes))>
 <!ATTLIST traversalPolicy
-	positive NMTOKEN #REQUIRED
-	name ID #REQUIRED >
+	positive (0|1) #REQUIRED
+	name CDATA #REQUIRED >
 
 <!ELEMENT funcType (#PCDATA)>
 <!ELEMENT links ((link)*)>
 
 <!ELEMENT link (destinationNode)>
-<!ATTLIST link 
-	name ID #REQUIRED >
-	
+<!ATTLIST link
+	name CDATA #REQUIRED >
+
 <!ELEMENT destinationNode EMPTY>
-<!ATTLIST destinationNode 
-	name IDREF #REQUIRED >
-	
+<!ATTLIST destinationNode
+	name CDATA #REQUIRED >
+
 <!ELEMENT verificationResult ANY>
 
 <!ELEMENT sourceNode EMPTY>
-<!ATTLIST sourceNode 
-	name IDREF #REQUIRED >
-	
+<!ATTLIST sourceNode
+	name CDATA #REQUIRED >
+
 <!ELEMENT traversedFunctionalTypes ((funcType)*)>
 <!ELEMENT verificationResultMsg (#PCDATA)>
 <!ELEMENT verificationTime (#PCDATA)>
