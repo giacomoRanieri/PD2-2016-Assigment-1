@@ -23,6 +23,9 @@ convertible to a GregorianCalendar java class.
 To deal with the enumeration of functionalType I've used in all of the schema a new type based on the enumeration
 restriction of the string XSD type, that can be mapped to a java Enum by the jaxb framework.
 
+To assure every entity name is simple and does not create potential problem to the system caused by special characters
+and spaces I've also restricted the string for the name.
+
 3. Use of Inheritance
 
 To be easily mappable to the java interfaces provided, I've exploited XSD inheritance during elements type definition
