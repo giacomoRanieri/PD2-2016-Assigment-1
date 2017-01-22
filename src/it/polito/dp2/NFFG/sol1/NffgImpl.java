@@ -16,7 +16,7 @@ public class NffgImpl extends NamedEntityImpl implements NffgReader {
 
 	public NffgImpl(NffgType fg) throws NffgVerifierException {
 		super(fg);
-		this.nodes = new HashSet<NodeReader>();
+		this.nodes = new HashSet<>();
 
 		this.init();
 	}
@@ -35,7 +35,7 @@ public class NffgImpl extends NamedEntityImpl implements NffgReader {
 
 	@Override
 	public Set<NodeReader> getNodes() {
-		return new HashSet<NodeReader>(nodes);
+		return new HashSet<>(nodes);
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package it.polito.dp2.NFFG.sol1;
 
+import it.polito.dp2.NFFG.NffgVerifierException;
 import it.polito.dp2.NFFG.PolicyReader;
 import it.polito.dp2.NFFG.VerificationResultReader;
 import it.polito.dp2.NFFG.sol1.jaxb.VerificationResultType;
@@ -12,7 +13,11 @@ public class VerificationResultImpl implements VerificationResultReader {
 	private VerificationResultType res;
 	private PolicyReader pol;
 
-	public VerificationResultImpl(VerificationResultType res, PolicyReader policy) {
+	public VerificationResultImpl(VerificationResultType res, PolicyReader policy) throws NffgVerifierException {
+		if (res == null)
+			throw new NffgVerifierException("VerificationResultType is null");
+		if (policy == null)
+			throw new NffgVerifierException("Policy is null");
 		this.res = res;
 		this.pol = policy;
 	}

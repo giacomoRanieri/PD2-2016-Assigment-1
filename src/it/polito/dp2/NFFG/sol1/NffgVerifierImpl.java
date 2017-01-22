@@ -18,8 +18,8 @@ public class NffgVerifierImpl implements NffgVerifier {
 
 	public NffgVerifierImpl(NffgVerifierType veri) throws NffgVerifierException {
 		this.verifier = veri;
-		this.nffgs = new HashSet<NffgReader>();
-		this.policy = new HashSet<PolicyReader>();
+		this.nffgs = new HashSet<>();
+		this.policy = new HashSet<>();
 
 		this.init();
 	}
@@ -59,12 +59,12 @@ public class NffgVerifierImpl implements NffgVerifier {
 
 	@Override
 	public Set<PolicyReader> getPolicies() {
-		return new HashSet<PolicyReader>(policy);
+		return new HashSet<>(policy);
 	}
 
 	@Override
 	public Set<PolicyReader> getPolicies(String nffgName) {
-		Set<PolicyReader> pols = new HashSet<PolicyReader>();
+		Set<PolicyReader> pols = new HashSet<>();
 		for (PolicyReader pol : policy) {
 			if (pol.getNffg().getName().equals(nffgName))
 				pols.add(pol);
@@ -77,7 +77,7 @@ public class NffgVerifierImpl implements NffgVerifier {
 
 	@Override
 	public Set<PolicyReader> getPolicies(Calendar verificationTime) {
-		Set<PolicyReader> pols = new HashSet<PolicyReader>();
+		Set<PolicyReader> pols = new HashSet<>();
 		for (PolicyReader pol : policy) {
 			if (pol.getResult().getVerificationTime() != null && pol.getResult().getVerificationTime().after((verificationTime)))
 				pols.add(pol);

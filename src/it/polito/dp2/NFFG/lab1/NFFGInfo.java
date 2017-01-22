@@ -3,7 +3,6 @@ package it.polito.dp2.NFFG.lab1;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.Set;
 import it.polito.dp2.NFFG.*;
 
@@ -12,11 +11,7 @@ public class NFFGInfo {
 	private NffgVerifier monitor;
 	private DateFormat dateFormat;
 
-	
-	/**
-	 * Default constructror
-	 * @throws NffgVerifierException 
-	 */
+
 	public NFFGInfo() throws NffgVerifierException {
 		NffgVerifierFactory factory = NffgVerifierFactory.newInstance();
 		monitor = factory.newNffgVerifier();
@@ -29,9 +24,6 @@ public class NFFGInfo {
 		dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 	}
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		NFFGInfo wf;
 		try {

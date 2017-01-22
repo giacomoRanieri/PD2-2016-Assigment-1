@@ -14,8 +14,10 @@ public class NodeImpl extends NamedEntityImpl implements NodeReader {
 
 	public NodeImpl(NodeType np, NffgReader nffg) throws NffgVerifierException {
 		super(np);
+		if (nffg == null)
+			throw new NffgVerifierException("nffg is null");
 		this.nffg = nffg;
-		this.links = new HashSet<LinkReader>();
+		this.links = new HashSet<>();
 		init();
 	}
 
@@ -33,7 +35,7 @@ public class NodeImpl extends NamedEntityImpl implements NodeReader {
 
 	@Override
 	public Set<LinkReader> getLinks() {
-		return new HashSet<LinkReader>(links);
+		return new HashSet<>(links);
 	}
 
 }

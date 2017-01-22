@@ -33,11 +33,6 @@ public class NffgInfoSerializer {
 	private NffgVerifierType jaxbVerifier;
 	private ObjectFactory objFact;
 
-	/**
-	 * Default constructror
-	 *
-	 * @throws NffgVerifierException
-	 */
 	public NffgInfoSerializer() throws NffgVerifierException {
 		NffgVerifierFactory factory = NffgVerifierFactory.newInstance();
 		verifier = factory.newNffgVerifier();
@@ -45,12 +40,6 @@ public class NffgInfoSerializer {
 		this.jaxbVerifier = objFact.createNffgVerifierType();
 	}
 
-	/**
-	 * Constructor with verifier
-	 *
-	 * @param verifier
-	 * @throws IllegalArgumentException
-	 */
 	public NffgInfoSerializer(NffgVerifierImpl verifier) {
 		super();
 		if (verifier != null) {
@@ -61,9 +50,7 @@ public class NffgInfoSerializer {
 			throw new IllegalArgumentException("Missing Verifier");
 	}
 
-	/**
-	 * @param args
-	 */
+
 	public static void main(String[] args) {
 		NffgInfoSerializer wf;
 		try {

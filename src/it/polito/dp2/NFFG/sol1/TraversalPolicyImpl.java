@@ -11,10 +11,9 @@ public class TraversalPolicyImpl extends ReachabilityPolicyImpl implements Trave
 
 	private Set<FunctionalType> fts;
 
-	public TraversalPolicyImpl(TraversalPolicyType policy, NffgReader fg) {
-
+	public TraversalPolicyImpl(TraversalPolicyType policy, NffgReader fg) throws NffgVerifierException {
 		super(policy, fg);
-		this.fts = new HashSet<FunctionalType>();
+		this.fts = new HashSet<>();
 		init();
 	}
 
@@ -26,7 +25,7 @@ public class TraversalPolicyImpl extends ReachabilityPolicyImpl implements Trave
 
 	@Override
 	public Set<FunctionalType> getTraversedFuctionalTypes() {
-		return new HashSet<FunctionalType>(fts);
+		return new HashSet<>(fts);
 	}
 
 }

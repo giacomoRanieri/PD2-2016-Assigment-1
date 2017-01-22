@@ -1,6 +1,7 @@
 package it.polito.dp2.NFFG.sol1;
 
 import it.polito.dp2.NFFG.NffgReader;
+import it.polito.dp2.NFFG.NffgVerifierException;
 import it.polito.dp2.NFFG.NodeReader;
 import it.polito.dp2.NFFG.ReachabilityPolicyReader;
 import it.polito.dp2.NFFG.sol1.jaxb.ReachabilityPolicyType;
@@ -9,7 +10,7 @@ import it.polito.dp2.NFFG.sol1.jaxb.ReachabilityPolicyType;
 public class ReachabilityPolicyImpl extends PolicyImpl implements ReachabilityPolicyReader {
 
 
-	public ReachabilityPolicyImpl(ReachabilityPolicyType policy, NffgReader fg) {
+	public ReachabilityPolicyImpl(ReachabilityPolicyType policy, NffgReader fg) throws NffgVerifierException {
 		super(policy, fg);
 	}
 
